@@ -7,27 +7,42 @@
 </head>
 <body>
     <input type="file" id="imageInput">
-    <img id="preview" alt="Preview">
-    <a id="downloadLink" download="compressed_image.jpg">Download Compressed Image</a>
+    <button onclick="compressAndDownload()">Compress</button>
+    <img id="preview" alt="Compressed Image">
 
     <script>
-        const imageInput = document.getElementById("imageInput");
-        const preview = document.getElementById("preview");
-        const downloadLink = document.getElementById("downloadLink");
+        async function compressAndDownload() {
+            const imageInput = document.getElementById("imageInput");
+            const file = imageInput.files[0];
 
-        imageInput.addEventListener("change", async (e) => {
-            const file = e.target.files[0];
+            // Compress the image (you'll need to implement this part)
             const compressedBlob = await compressImage(file);
-            const compressedUrl = URL.createObjectURL(compressedBlob);
 
-            preview.src = compressedUrl;
-            downloadLink.href = compressedUrl;
-        });
+            // Create a download link for the compressed image
+            const downloadLink = document.createElement("a");
+            downloadLink.href = URL.createObjectURL(compressedBlob);
+            downloadLink.download = "compressed_image.jpg";
+            downloadLink.textContent = "Download Compressed Image";
+
+            // Append the link to the page
+            document.body.appendChild(downloadLink);
+        }
 
         async function compressImage(file) {
-            // Implement image compression logic here (e.g., using canvas or other libraries)
-            // Return the compressed Blob
+            // Implement image compression logic here (using Canvas or other libraries)
             // Example: return await someCompressionFunction(file);
+            // For now, let's assume we have a placeholder function:
+            const compressedData = await someCompressionFunction(file);
+            return new Blob([compressedData], { type: "image/jpeg" });
+        }
+
+        // Placeholder function (you'll need to replace this)
+        async function someCompressionFunction(file) {
+            // Simulate compression (e.g., resizing)
+            // In a real implementation, use Canvas or other libraries
+            // For now, just return the original image data
+            const originalData = await file.arrayBuffer();
+            return originalData;
         }
     </script>
 </body>
