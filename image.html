@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor</title>
+</head>
+<body>
+    <input type="file" id="imageInput">
+    <img id="preview" alt="Preview">
+    <a id="downloadLink" download="compressed_image.jpg">Download Compressed Image</a>
+
+    <script>
+        const imageInput = document.getElementById("imageInput");
+        const preview = document.getElementById("preview");
+        const downloadLink = document.getElementById("downloadLink");
+
+        imageInput.addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            const compressedBlob = await compressImage(file);
+            const compressedUrl = URL.createObjectURL(compressedBlob);
+
+            preview.src = compressedUrl;
+            downloadLink.href = compressedUrl;
+        });
+
+        async function compressImage(file) {
+            // Implement image compression logic here (e.g., using canvas or other libraries)
+            // Return the compressed Blob
+            // Example: return await someCompressionFunction(file);
+        }
+    </script>
+</body>
+</html>
