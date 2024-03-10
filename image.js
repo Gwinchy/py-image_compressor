@@ -15,12 +15,14 @@ function compressAndDownload() {
 
     img.onload = () => {
         // Set the desired dimensions for the compressed image
-        const maxWidth = width; // Adjust as needed
-        const maxHeight = height; // Adjust as needed
+// Adjust as needed
 
         let width = img.width;
         let height = img.height;
 
+        const maxWidth = width; // Adjust as needed
+        const maxHeight = height; 
+        
         if (width > maxWidth) {
             height *= maxWidth / width;
             width = maxWidth;
