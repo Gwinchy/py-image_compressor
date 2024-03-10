@@ -58,6 +58,6 @@ function compressAndDownload() {
             // Append the download link below the "Compress" button
             const container = document.getElementById('container');
             container.appendChild(downloadLink);
-        }, 'image/jpeg', 0.5); // Adjust compression quality (0.5 = 50% quality)
+        }, 'image/jpeg', 0.35); // Adjust compression quality (0.5 = 50% quality)
     };
 }
