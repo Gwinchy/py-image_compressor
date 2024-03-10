@@ -4,6 +4,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    padding-top: 50px;
     /* Add other background properties as needed */
 }
 
@@ -20,22 +21,24 @@ body {
 
 /* Style the headings */
 h1, h3, h4 {
-    color: #9cc3dac4;
+    color: #ee6ca8;
+    font-family: Papyrus;
+
 }
 h1 {
-    font-size: 60px;
+    font-size: 70px;
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 h3 {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 h4 {
-    font-size: 30px;
+    font-size: 40px;
 }
 
 /* Style the buttons */
