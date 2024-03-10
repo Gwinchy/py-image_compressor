@@ -21,7 +21,7 @@ body {
 
 /* Style the headings */
 h1, h3, h4 {
-    color: #ee6ca8;
+    color: #9e6cee;
     font-family: Papyrus;
 
 }
@@ -69,3 +69,10 @@ input[type="file"] {
 }
 
 /* Add any other custom styles you need */
+a {
+    text-decoration: none;
+    font-size: 15px;
+    color: #6da3dd;
+    display: flex;
+    flex-direction: column;
+}
