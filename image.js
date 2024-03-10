@@ -1,4 +1,3 @@
-
 function compressAndDownload() {
     const inputElement = document.getElementById('imageInput');
     const file = inputElement.files[0];
@@ -16,12 +15,14 @@ function compressAndDownload() {
 
     img.onload = () => {
         // Set the desired dimensions for the compressed image
-        const maxWidth = 200; // Adjust as needed
-        const maxHeight = 400; // Adjust as needed
+// Adjust as needed
 
         let width = img.width;
         let height = img.height;
 
+        const maxWidth = width; // Adjust as needed
+        const maxHeight = height; 
+        
         if (width > maxWidth) {
             height *= maxWidth / width;
             width = maxWidth;
@@ -47,9 +48,16 @@ function compressAndDownload() {
             downloadLink.download = 'compressed_image.jpg';
             downloadLink.textContent = 'Download Compressed Image';
 
-            // Replace the "Compress" button with the download link
-            const compressButton = document.querySelector('button');
-            compressButton.replaceWith(downloadLink);
+            // Show alert when the download link is clicked
+            downloadLink.addEventListener('click', () => {
+                alert('Here is your compressed image.');
+                // Reset the input field for the next upload
+                inputElement.value = '';
+            });
+
+            // Append the download link below the "Compress" button
+            const container = document.getElementById('container');
+            container.appendChild(downloadLink);
         }, 'image/jpeg', 0.5); // Adjust compression quality (0.5 = 50% quality)
     };
 }
