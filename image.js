@@ -63,6 +63,6 @@ function compressAndDownload() {
 
             const container = document.getElementById('container');
             container.appendChild(downloadLink);
-        }, 'image/jpeg', 1.5);
+        }, 'image/jpeg', 0.5);
     };
 }
