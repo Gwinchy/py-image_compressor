@@ -14,9 +14,6 @@ function compressAndDownload() {
     img.src = URL.createObjectURL(file);
 
     img.onload = () => {
-        // Set the desired dimensions for the compressed image
-// Adjust as needed
-
         let width = img.width;
         let height = img.height;
 
@@ -38,27 +35,34 @@ function compressAndDownload() {
 
         ctx.drawImage(img, 0, 0, width, height);
 
-        // Convert canvas to Blob (compressed image)
         canvas.toBlob((blob) => {
-            const compressedImage = new File([blob], 'compressed_image.jpg', { type: 'image/jpeg' });
+            const compressedImage = new File([blob], `${file.name}_compressed.jpg`, { type: 'image/jpeg' });
 
-            // Create a download link
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(compressedImage);
-            downloadLink.download = 'compressed_image.jpg';
+            downloadLink.download = `${file.name}_compressed.jpg`;
             downloadLink.textContent = 'Download Compressed Image';
 
-            // Show alert when the download link is clicked
             downloadLink.addEventListener('click', () => {
                 alert('Here is your compressed image.');
-                // Reset the input field for the next upload
                 inputElement.value = '';
+
+                // Increment the downloaded image counter
+                const counter = document.getElementById('downloadCounter');
+                const currentCount = parseInt(counter.textContent) || 0;
+                counter.textContent = (currentCount + 1).toString();
+
+                // Update the button text to indicate that an image has been downloaded
+                downloadLink.textContent = 'Image Downloaded';
+                downloadLink.disabled = true;
+
+                if (textContent === 'Image Downloaded') {
+                    downloadLink.disabled = true;
+                }
             });
 
-            // Append the download link below the "Compress" button
             const container = document.getElementById('container');
             container.appendChild(downloadLink);
-        }, 'image/jpeg', 0.5); // Adjust compression quality (0.5 = 50% quality)
+        }, 'image/jpeg', 1.5);
     };
-    alert("Upload another image");
 }
