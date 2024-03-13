@@ -1,24 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('compressAndDownloadBtn').addEventListener('click', () => {
-        const files = document.getElementById('imageInput').files;
-        compressAndDownloadMultiple([...files]);
-    });
-});
-
 function compressAndDownloadMultiple(files) {
     console.log('Received files:', files);
     const container = document.getElementById('container');
     const downloadCounter = document.getElementById('downloadCounter');
 
-    const imageStack = [...files];
-
-    function processNextImage() {
-        if (imageStack.length === 0) {
-            console.log('All images processed.');
-            return;
-        }
-        const file = imageStack.pop();
-
+    files.forEach(file => {
+        
+    });((file, index) => {
         const img = new Image();
         img.src = URL.createObjectURL(file);
 
@@ -29,18 +16,17 @@ function compressAndDownloadMultiple(files) {
             let width = img.width;
             let height = img.height;
 
-            const maxWidth = 800; // Set maximum width for compressed image
-            const maxHeight = 600; // Set maximum height for compressed image
+            const maxWidth = width;
+            const maxHeight = height;
 
-            if (width > maxWidth || height > maxHeight) {
-                const aspectRatio = width / height;
-                if (aspectRatio > 1) {
-                    width = maxWidth;
-                    height = maxWidth / aspectRatio;
-                } else {
-                    width = maxHeight * aspectRatio;
-                    height = maxHeight;
-                }
+            if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+            }
+
+            if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
             }
 
             canvas.width = width;
@@ -54,24 +40,25 @@ function compressAndDownloadMultiple(files) {
                 const downloadLink = document.createElement('a');
                 downloadLink.href = URL.createObjectURL(compressedImage);
                 downloadLink.download = `${file.name}_compressed.jpg`;
-                downloadLink.textContent = `Download Compressed Image`;
+                downloadLink.textContent = `Download Compressed Image ${index + 1}`;
 
                 downloadLink.addEventListener('click', () => {
                     alert('Here is your compressed image.');
+                    // Clear the input element
+                    const inputElement = document.getElementById('imageInput');
+                    inputElement.value = '';
 
+                    // Increment the downloaded image counter
                     const currentCount = parseInt(downloadCounter.textContent) || 0;
                     downloadCounter.textContent = (currentCount + 1).toString();
 
+                    // Update the button text to indicate that an image has been downloaded
                     downloadLink.textContent = 'Image Downloaded';
                     downloadLink.disabled = true;
-
-                    processNextImage();
                 });
 
                 container.appendChild(downloadLink);
-            }, 'image/jpeg', 0.7); // Adjust compression quality if needed
+            }, 'image/jpeg', 0.5);
         };
-    }
-
-    processNextImage();
+    });
 }
